@@ -148,6 +148,19 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+
+
+	  if(HAL_GPIO_ReadPin(button_GPIO_Port,button_Pin))
+	  {
+		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_SET);
+
+	  }
+	  else
+	  {
+		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_RESET);
+
+	  }
+	  /*
 	  BSP_TS_GetState(&buffer);
 	  if(buffer.touchDetected>0)
 	  {
@@ -168,7 +181,7 @@ int main(void)
 		  }
 		  vingerErOp = 0;
 	  }
-
+*/
   }
   /* USER CODE END 3 */
 
@@ -756,11 +769,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
   HAL_GPIO_Init(ARDUINO_PWM_CS_D10_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : buttton_Pin */
-  GPIO_InitStruct.Pin = buttton_Pin;
+  /*Configure GPIO pin : button_Pin */
+  GPIO_InitStruct.Pin = button_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(buttton_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(button_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ARDUINO_PWM_D5_Pin */
   GPIO_InitStruct.Pin = ARDUINO_PWM_D5_Pin;
