@@ -40,6 +40,7 @@
 #include "stm32746g_discovery_ts.h"
 
 #include "face_data.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -91,6 +92,12 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	TS_StateTypeDef buffer;
 	int vingerErOp = 0;
+
+		uint8_t word[32] = "Hello piece of shit\r\n";
+		uint8_t x;
+		uint8_t i =0;
+		uint8_t s[32]="";
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -148,41 +155,24 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+//	  HAL_UART_Transmit(&huart1,word,strlen(word),HAL_MAX_DELAY);
+//	  HAL_Delay(1000);
 
-
-	  if(HAL_GPIO_ReadPin(button_GPIO_Port,button_Pin))
+	  do
 	  {
+		  HAL_UART_Receive(&huart1,&x,1,HAL_MAX_DELAY);
+		  s[i++]=x;
+	  }while(x != '!');
+	  i = 0;
+
+	  if((strcmp(s,"qwerty!")==0))
 		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_SET);
 
-	  }
 	  else
-	  {
 		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_RESET);
 
-	  }
-	  /*
-	  BSP_TS_GetState(&buffer);
-	  if(buffer.touchDetected>0)
-	  {
-		  if(0 == vingerErOp)
-		  {
-			  BSP_LCD_ClearStringLine(0);
-			  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "I'm Robin!", CENTER_MODE);
-		  }
-		  vingerErOp = 1;
-
-
-	  }
-	  else
-	  {
-		  if(1 == vingerErOp){
-			  BSP_LCD_ClearStringLine(0);
-			  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "No I'm BATMAN", CENTER_MODE);
-		  }
-		  vingerErOp = 0;
-	  }
-*/
   }
+
   /* USER CODE END 3 */
 
 }
@@ -424,7 +414,7 @@ static void MX_USART1_UART_Init(void)
 
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_7B;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
   huart1.Init.Mode = UART_MODE_TX_RX;
