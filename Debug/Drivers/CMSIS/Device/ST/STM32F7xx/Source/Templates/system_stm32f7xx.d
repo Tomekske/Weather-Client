@@ -20,6 +20,7 @@ Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/system_stm32f7xx.o: \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma_ex.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_cortex.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma2d.h \
+ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_eth.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash_ex.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_sdram.h \
@@ -72,6 +73,8 @@ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Proj
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_cortex.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma2d.h:
+
+C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_eth.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_flash.h:
 

@@ -9,6 +9,13 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Src/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/netif/ppp/polarssl/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/netif/ppp/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/netif/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/core/ipv6/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/core/ipv4/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/core/subdir.mk
+-include Middlewares/Third_Party/LwIP/src/api/subdir.mk
 -include Drivers/src/subdir.mk
 -include Drivers/components/subdir.mk
 -include Drivers/Utilities/Fonts/subdir.mk

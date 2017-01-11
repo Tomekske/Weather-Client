@@ -32,6 +32,7 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
+#include "lwip.h"
 
 /* USER CODE BEGIN Includes */
 #include "stm32746g_discovery.h"
@@ -40,7 +41,12 @@
 #include "stm32746g_discovery_ts.h"
 
 #include "face_data.h"
-#include "string.h"
+
+
+#include "stm32f7xx_hal.h"
+#include "lwip.h"
+#include "tcp.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -83,7 +89,23 @@ static void MX_DMA2D_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+err_t dataOntvangen(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err){
+	if(p == NULL && !err){
+		tcp_close(tpcb);
+		return ERR_OK;
+	}
+	  HAL_UART_Transmit(&huart1,"hey\r\n",strlen("hey\r\n"),HAL_MAX_DELAY);
+	//iets doen met de data
+	tcp_recved(tpcb,p->tot_len);
+	pbuf_free(p);
+	return ERR_OK;
+}
 
+err_t connected(void *arg, struct tcp_pcb *tpcb, err_t err){
+	tcp_write(tpcb,"GET /test.html HTTP/1.0\r\nhost: www.google.be\r\n\r\n",strlen("GET /test.html HTTP/1.0\r\nhost: www.google.be\r\n\r\n"),TCP_WRITE_FLAG_COPY);
+	tcp_recv(tpcb,dataOntvangen);
+	return err;
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -93,10 +115,12 @@ int main(void)
 	TS_StateTypeDef buffer;
 	int vingerErOp = 0;
 
-		uint8_t word[32] = "Hello piece of shit\r\n";
+		uint8_t word[32] = "";
 		uint8_t x;
 		uint8_t i =0;
 		uint8_t s[32]="";
+		uint8_t ucBegin=1;
+			volatile uint32_t counter = 0;
 
   /* USER CODE END 1 */
 
@@ -118,6 +142,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
   MX_DMA2D_Init();
+  MX_LWIP_Init();
 
   /* USER CODE BEGIN 2 */
   /* LCD Initialization */
@@ -135,7 +160,7 @@ int main(void)
   BSP_LCD_ClearStringLine(0);
   //BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "Display is working", CENTER_MODE);
 
-
+/*
   if(TS_OK == BSP_TS_Init(480,272)) //checken of TS geinitialiseerd is
   {
 	  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "LCD + TS is working", CENTER_MODE); //TS is oke
@@ -146,6 +171,7 @@ int main(void)
   }
 
   BSP_LCD_DrawBitmap(0, 20, FACE_DATA); // afbeelding op plaats x0,y20 zetten
+  */
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -157,7 +183,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
 //	  HAL_UART_Transmit(&huart1,word,strlen(word),HAL_MAX_DELAY);
 //	  HAL_Delay(1000);
-
+/*
 	  do
 	  {
 		  HAL_UART_Receive(&huart1,&x,1,HAL_MAX_DELAY);
@@ -170,8 +196,17 @@ int main(void)
 
 	  else
 		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_RESET);
-
+		  */
+if(ucBegin==1 && counter++ > 500){
+  		 ucBegin = 0;
+  		 struct tcp_pcb *connectie = tcp_new();
+  		 ip_addr_t xServerip;
+  		 IP4_ADDR(&xServerip, 192,168,7,1);
+  		 tcp_connect(connectie, &xServerip, 80, connected); //poort 80 xamp
+  	}
+  	 HAL_Delay(1);
   }
+
 
   /* USER CODE END 3 */
 
@@ -490,7 +525,6 @@ static void MX_FMC_Init(void)
         * Output
         * EVENT_OUT
         * EXTI
-     PG14   ------> ETH_TXD1
      PB5   ------> USB_OTG_HS_ULPI_D7
      PB4   ------> S_TIM3_CH1
      PD7   ------> SPDIFRX_IN0
@@ -498,8 +532,6 @@ static void MX_FMC_Init(void)
      PA15   ------> S_TIM2_CH1_ETR
      PE5   ------> DCMI_D6
      PE6   ------> DCMI_D7
-     PG13   ------> ETH_TXD0
-     PG11   ------> ETH_TX_EN
      PC11   ------> SDMMC1_D3
      PC10   ------> SDMMC1_D2
      PA12   ------> USB_OTG_FS_DP
@@ -527,24 +559,18 @@ static void MX_FMC_Init(void)
      PF8   ------> ADC3_IN6
      PB12   ------> USB_OTG_HS_ULPI_D5
      PC0   ------> USB_OTG_HS_ULPI_STP
-     PC1   ------> ETH_MDC
      PC2   ------> USB_OTG_HS_ULPI_DIR
      PH12   ------> DCMI_D3
-     PA1   ------> ETH_REF_CLK
      PA0/WKUP   ------> ADCx_IN0
      PA4   ------> DCMI_HSYNC
-     PC4   ------> ETH_RXD0
      PH9   ------> DCMI_D0
      PH11   ------> DCMI_D2
-     PA2   ------> ETH_MDIO
      PA6   ------> DCMI_PIXCLK
      PA5   ------> USB_OTG_HS_ULPI_CK
-     PC5   ------> ETH_RXD1
      PB10   ------> USB_OTG_HS_ULPI_D3
      PH6   ------> S_TIM12_CH1
      PH10   ------> DCMI_D1
      PA3   ------> USB_OTG_HS_ULPI_D0
-     PA7   ------> ETH_CRS_DV
      PB1   ------> USB_OTG_HS_ULPI_D2
      PB0   ------> USB_OTG_HS_ULPI_D1
      PB11   ------> USB_OTG_HS_ULPI_D4
@@ -574,14 +600,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(OTG_HS_OverCurrent_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : RMII_TXD1_Pin RMII_TXD0_Pin RMII_TX_EN_Pin */
-  GPIO_InitStruct.Pin = RMII_TXD1_Pin|RMII_TXD0_Pin|RMII_TX_EN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ULPI_D7_Pin ULPI_D6_Pin ULPI_D5_Pin ULPI_D3_Pin 
                            ULPI_D2_Pin ULPI_D1_Pin ULPI_D4_Pin */
@@ -810,27 +828,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RMII_MDC_Pin RMII_RXD0_Pin RMII_RXD1_Pin */
-  GPIO_InitStruct.Pin = RMII_MDC_Pin|RMII_RXD0_Pin|RMII_RXD1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
   /*Configure GPIO pin : RMII_RXER_Pin */
   GPIO_InitStruct.Pin = RMII_RXER_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(RMII_RXER_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : RMII_REF_CLK_Pin RMII_MDIO_Pin RMII_CRS_DV_Pin */
-  GPIO_InitStruct.Pin = RMII_REF_CLK_Pin|RMII_MDIO_Pin|RMII_CRS_DV_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ARDUINO_A0_Pin */
   GPIO_InitStruct.Pin = ARDUINO_A0_Pin;

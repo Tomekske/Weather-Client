@@ -10,6 +10,7 @@ C_SRCS += \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma2d.c \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dsi.c \
+../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.c \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c \
 ../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c \
@@ -35,6 +36,7 @@ OBJS += \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma2d.o \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.o \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dsi.o \
+./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.o \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.o \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.o \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.o \
@@ -60,6 +62,7 @@ C_DEPS += \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma2d.d \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.d \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dsi.d \
+./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.d \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.d \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.d \
 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.d \
@@ -84,7 +87,7 @@ Drivers/STM32F7xx_HAL_Driver/Src/%.o: ../Drivers/STM32F7xx_HAL_Driver/Src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo %cd%
-	arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -mfloat-abi=hard -mfpu=fpv5-sp-d16 -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F746xx -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS/Include" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS/Device/ST/STM32F7xx/Include" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/common" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/src" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/Utilities"  -Os -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -mfloat-abi=hard -mfpu=fpv5-sp-d16 -D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))" -DUSE_HAL_DRIVER -DSTM32F746xx -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS/Include" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS/Device/ST/STM32F7xx/Include" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/CMSIS" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/common" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/inc" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/src" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/STM32F7xx_HAL_Driver" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Drivers/Utilities" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/apps" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/priv" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/ppp" -I"C:/Users/Tomek/Dropbox/School/Embedded systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/ppp/polarssl"  -Os -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
