@@ -39,27 +39,7 @@ Middlewares/Third_Party/LwIP/src/core/ipv4/dhcp.o: \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/arch.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system/arch/cc.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system/arch/cpu.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/stats.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/mem.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/memp.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_std.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/udp.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/err.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/netif.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/def.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6_addr.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/autoip.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dns.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/etharp.h
+ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system/arch/cpu.h
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
 
@@ -140,43 +120,3 @@ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Proj
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system/arch/cc.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/system/arch/cpu.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/stats.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/mem.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/memp.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_std.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/udp.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/err.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/netif.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/def.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6_addr.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/autoip.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dns.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/etharp.h:

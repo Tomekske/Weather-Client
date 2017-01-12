@@ -62,8 +62,7 @@ Middlewares/Third_Party/LwIP/src/core/netif.o: \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/snmp.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/igmp.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/etharp.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/sys.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h
+ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/sys.h
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
 
@@ -190,5 +189,3 @@ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Proj
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/netif/etharp.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/sys.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h:

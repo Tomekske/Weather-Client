@@ -57,7 +57,6 @@ Src/main.o: ../Src/main.c \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h \
- C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/udp.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/lwip_timers.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Inc/ethernetif.h \
  C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Drivers/inc/stm32746g_discovery.h \
@@ -189,8 +188,6 @@ C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Proj
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h:
-
-C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/udp.h:
 
 C:/Users/Tomek/Dropbox/School/Embedded\ systems/workspace/Joostens_Tomek_ES_Project/Middlewares/Third_Party/LwIP/src/include/lwip/lwip_timers.h:
 

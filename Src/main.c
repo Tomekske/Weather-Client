@@ -39,10 +39,7 @@
 #include "stm32746g_discovery_lcd.h"
 #include "stm32746g_discovery_sdram.h"
 #include "stm32746g_discovery_ts.h"
-
 #include "face_data.h"
-
-
 #include "stm32f7xx_hal.h"
 #include "lwip.h"
 #include "tcp.h"
@@ -90,21 +87,28 @@ static void MX_DMA2D_Init(void);
 
 /* USER CODE BEGIN 0 */
 err_t dataOntvangen(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err){
-	if(p == NULL && !err){
-		tcp_close(tpcb);
-		return ERR_OK;
-	}
-	  HAL_UART_Transmit(&huart1,"hey\r\n",strlen("hey\r\n"),HAL_MAX_DELAY);
-	//iets doen met de data
-	tcp_recved(tpcb,p->tot_len);
-	pbuf_free(p);
-	return ERR_OK;
+    char buffer[400];
+
+    if(p == NULL && !err){
+        tcp_close(tpcb);
+        return ERR_OK;
+    }
+    snprintf(buffer,strlen(buffer - 1),"Ik heb ontvangen:\r\n '%s'\r\n", p->payload);
+    buffer[199] = '\0';
+    HAL_UART_Transmit(&huart1,buffer,strlen(buffer),HAL_MAX_DELAY);
+    //iets doen met de data
+    tcp_recved(tpcb,p->len);
+    pbuf_free(p);
+    return ERR_OK;
 }
 
 err_t connected(void *arg, struct tcp_pcb *tpcb, err_t err){
-	tcp_write(tpcb,"GET /test.html HTTP/1.0\r\nhost: www.google.be\r\n\r\n",strlen("GET /test.html HTTP/1.0\r\nhost: www.google.be\r\n\r\n"),TCP_WRITE_FLAG_COPY);
-	tcp_recv(tpcb,dataOntvangen);
-	return err;
+    char buffer[200];
+    char *word = (char*) arg;
+    sprintf(buffer,"GET /test.html?q=%s HTTP/1.0\r\nhost: www.google.be\r\n\r\n", word);
+    tcp_write(tpcb,buffer,strlen(buffer),TCP_WRITE_FLAG_COPY);
+    tcp_recv(tpcb,dataOntvangen);
+    return err;
 }
 /* USER CODE END 0 */
 
@@ -112,16 +116,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	TS_StateTypeDef buffer;
-	int vingerErOp = 0;
-
-		uint8_t word[32] = "";
-		uint8_t x;
-		uint8_t i =0;
-		uint8_t s[32]="";
-		uint8_t ucBegin=1;
-			volatile uint32_t counter = 0;
-
+	uint8_t ucBegin=1;
+	volatile uint32_t counter = 0;
+	char word[32] = "hey";
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -146,32 +143,21 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   /* LCD Initialization */
-  BSP_LCD_Init();
-  BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);
+
+ // BSP_LCD_Init();
+ // BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);
   /* Enable the LCD */
-  BSP_LCD_DisplayOn();
+ // BSP_LCD_DisplayOn();
   /* Select the LCD Background Layer  */
-  BSP_LCD_SelectLayer(0);
+ // BSP_LCD_SelectLayer(0);
   /* Clear the Background Layer */
-  BSP_LCD_Clear(LCD_COLOR_BLACK);
+ // BSP_LCD_Clear(LCD_COLOR_BLACK);
   /* Some sign */
-  BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
-  BSP_LCD_SetFont(&Font12);
-  BSP_LCD_ClearStringLine(0);
-  //BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "Display is working", CENTER_MODE);
+ // BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
+ // BSP_LCD_SetFont(&Font12);
+ // BSP_LCD_ClearStringLine(0);
+ // BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "Display is working", CENTER_MODE);
 
-/*
-  if(TS_OK == BSP_TS_Init(480,272)) //checken of TS geinitialiseerd is
-  {
-	  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "LCD + TS is working", CENTER_MODE); //TS is oke
-  }
-  else
-  {
-	  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "TS not working...", CENTER_MODE);
-  }
-
-  BSP_LCD_DrawBitmap(0, 20, FACE_DATA); // afbeelding op plaats x0,y20 zetten
-  */
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -181,32 +167,19 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-//	  HAL_UART_Transmit(&huart1,word,strlen(word),HAL_MAX_DELAY);
-//	  HAL_Delay(1000);
-/*
-	  do
-	  {
-		  HAL_UART_Receive(&huart1,&x,1,HAL_MAX_DELAY);
-		  s[i++]=x;
-	  }while(x != '!');
-	  i = 0;
+	  MX_LWIP_Process(); // polt of er data beschikbaar is
 
-	  if((strcmp(s,"qwerty!")==0))
-		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_SET);
+	 if(ucBegin==1 && counter++ > 500){
+		 ucBegin = 0;
+		 struct tcp_pcb *connectie = tcp_new();
+		 ip_addr_t xServerip;
+		 IP4_ADDR(&xServerip, 192,168,7,1);
+		 tcp_arg(connectie, word);
+		 tcp_connect(connectie, &xServerip, 80, connected); //poort 80 xamp
+	}
+	 HAL_Delay(1);
 
-	  else
-		  HAL_GPIO_WritePin(led_GPIO_Port,led_Pin,GPIO_PIN_RESET);
-		  */
-if(ucBegin==1 && counter++ > 500){
-  		 ucBegin = 0;
-  		 struct tcp_pcb *connectie = tcp_new();
-  		 ip_addr_t xServerip;
-  		 IP4_ADDR(&xServerip, 192,168,7,1);
-  		 tcp_connect(connectie, &xServerip, 80, connected); //poort 80 xamp
-  	}
-  	 HAL_Delay(1);
   }
-
 
   /* USER CODE END 3 */
 
@@ -317,7 +290,7 @@ static void MX_I2C1_Init(void)
     Error_Handler();
   }
 
-    /**Configure Analogue filter 
+    /**Configure Analogue filter
     */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
@@ -344,7 +317,7 @@ static void MX_I2C3_Init(void)
     Error_Handler();
   }
 
-    /**Configure Analogue filter 
+    /**Configure Analogue filter
     */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
@@ -519,9 +492,9 @@ static void MX_FMC_Init(void)
 
 }
 
-/** Configure pins as 
-        * Analog 
-        * Input 
+/** Configure pins as
+        * Analog
+        * Input
         * Output
         * EVENT_OUT
         * EXTI
@@ -905,7 +878,7 @@ void Error_Handler(void)
   while(1) 
   {
   }
-  /* USER CODE END Error_Handler */ 
+  /* USER CODE END Error_Handler */
 }
 
 #ifdef USE_FULL_ASSERT
@@ -930,10 +903,10 @@ void assert_failed(uint8_t* file, uint32_t line)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-*/ 
+*/
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
