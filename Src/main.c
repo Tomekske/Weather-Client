@@ -118,7 +118,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	uint8_t ucBegin=1;
 	volatile uint32_t counter = 0;
-	char word[32] = "hey";
+	char word[16] = "hey";
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -290,7 +290,7 @@ static void MX_I2C1_Init(void)
     Error_Handler();
   }
 
-    /**Configure Analogue filter
+    /**Configure Analogue filter 
     */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
@@ -317,7 +317,7 @@ static void MX_I2C3_Init(void)
     Error_Handler();
   }
 
-    /**Configure Analogue filter
+    /**Configure Analogue filter 
     */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
@@ -492,9 +492,9 @@ static void MX_FMC_Init(void)
 
 }
 
-/** Configure pins as
-        * Analog
-        * Input
+/** Configure pins as 
+        * Analog 
+        * Input 
         * Output
         * EVENT_OUT
         * EXTI
@@ -878,7 +878,7 @@ void Error_Handler(void)
   while(1) 
   {
   }
-  /* USER CODE END Error_Handler */
+  /* USER CODE END Error_Handler */ 
 }
 
 #ifdef USE_FULL_ASSERT
@@ -903,10 +903,10 @@ void assert_failed(uint8_t* file, uint32_t line)
 
 /**
   * @}
-  */
+  */ 
 
 /**
   * @}
-*/
+*/ 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
