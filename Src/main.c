@@ -44,6 +44,8 @@
 #include "lwip.h"
 #include "tcp.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -82,7 +84,7 @@ static void MX_DMA2D_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+float convertToCelsius(char *kelvin);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -119,6 +121,20 @@ int main(void)
 	uint8_t ucBegin=1;
 	volatile uint32_t counter = 0;
 	char word[16] = "hey";
+	char token[700] = "{`coord`:{`lon`:4.39,`lat`:50.83},`weather`:[{`id`:701,`main`:`Mist`,`description`:`mist`,`icon`:`50n`}],`base`:`stations`,`main`:{`temp`:269.57,`pressure`:1037,`humidity`:92,`temp_min`:269.15,`temp_max`:270.15},`visibility`:3800,`wind`:{`speed`:1.5,`deg`:60},`clouds`:{`all`:0},`dt`:1484774700,`sys`:{`type`:1,`id`:4842,`message`:0.011,`country`:`BE`,`sunrise`:1484724888,`sunset`:1484755924},`id`:2798578,`name`:`Etterbeek`,`cod`:200}";
+	char filter[20] = "{}\"\": ,[]'`";
+	char *contents = strtok(token, filter);//remove '{' and  '}' : note that is not included in the content
+	char *arr[700];
+	int i = 0;
+	char country[20];
+	char city[20];
+	char kelvin[20];
+	char weather[20];
+	float cels = 0;
+	char celsBuff[256];
+	char title[16] = "Weather station";
+	char fullCountry[32];
+	uint8_t spacing = 24;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -144,24 +160,76 @@ int main(void)
   /* USER CODE BEGIN 2 */
   /* LCD Initialization */
 
- // BSP_LCD_Init();
- // BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);
+  BSP_LCD_Init();
+  BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);
   /* Enable the LCD */
- // BSP_LCD_DisplayOn();
+  BSP_LCD_DisplayOn();
   /* Select the LCD Background Layer  */
- // BSP_LCD_SelectLayer(0);
+  BSP_LCD_SelectLayer(0);
   /* Clear the Background Layer */
- // BSP_LCD_Clear(LCD_COLOR_BLACK);
+  BSP_LCD_Clear(LCD_COLOR_WHITE);
   /* Some sign */
- // BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
- // BSP_LCD_SetFont(&Font12);
- // BSP_LCD_ClearStringLine(0);
- // BSP_LCD_DisplayStringAt(0, 0, (uint8_t*) "Display is working", CENTER_MODE);
+  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+  BSP_LCD_SetFont(&Font24);
+  BSP_LCD_ClearStringLine(0);
+
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  while (contents != NULL)
+  	{
+  		arr[i] = contents;
+  		contents = strtok(NULL, filter);
+  		i++;
+  	}
+
+
+  	for (int j = 0; j < i; j++)
+  	{
+  		if (strcmp(arr[j], "temp") == 0)
+  		{
+  			strcpy(kelvin, arr[j + 1]);
+  			continue;
+  		}
+  		if (strcmp(arr[j], "country") == 0)
+  		{
+  			strcpy(country, arr[j+1]);
+  			continue;
+  		}
+
+  		if (strcmp(arr[j], "name") == 0)
+  		{
+  			strcpy(city, arr[j + 1]);
+  			continue;
+  		}
+
+  	}
+
+  	for (int j = 0; j < i; j++)
+  	{
+  		if (strcmp(arr[j], "main") == 0)
+  		{
+  			strcpy(weather, arr[j + 1]);
+  			break;
+  		}
+  	}
+
+  	cels = convertToCelsius(kelvin);
+  	sprintf(celsBuff,"%0.2f*C",cels);
+  	strcpy(fullCountry,city);
+  	strcat(fullCountry,",");
+  	strcat(fullCountry, country);
+
+  	BSP_LCD_DisplayStringAt(0, 10, (uint8_t*) title, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, spacing + 10, (uint8_t*) celsBuff, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, (spacing * 2) + 10, (uint8_t*) weather, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, (spacing * 3) + 10, (uint8_t*) fullCountry, CENTER_MODE);
+
+
+
+
   while (1)
   {
   /* USER CODE END WHILE */
@@ -863,7 +931,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+float convertToCelsius(char *kelvin)
+{
+	return atof(kelvin) - 273.15;
+}
 /* USER CODE END 4 */
 
 /**
