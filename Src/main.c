@@ -84,7 +84,7 @@ static void MX_DMA2D_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-float convertToCelsius(char *kelvin);
+float xConvertToCelsius(uint8_t *ucKelvin);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -118,23 +118,16 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	uint8_t ucBegin=1;
-	volatile uint32_t counter = 0;
-	char word[16] = "hey";
-	char token[700] = "{`coord`:{`lon`:4.39,`lat`:50.83},`weather`:[{`id`:701,`main`:`Mist`,`description`:`mist`,`icon`:`50n`}],`base`:`stations`,`main`:{`temp`:269.57,`pressure`:1037,`humidity`:92,`temp_min`:269.15,`temp_max`:270.15},`visibility`:3800,`wind`:{`speed`:1.5,`deg`:60},`clouds`:{`all`:0},`dt`:1484774700,`sys`:{`type`:1,`id`:4842,`message`:0.011,`country`:`BE`,`sunrise`:1484724888,`sunset`:1484755924},`id`:2798578,`name`:`Etterbeek`,`cod`:200}";
-	char filter[20] = "{}\"\": ,[]'`";
-	char *contents = strtok(token, filter);//remove '{' and  '}' : note that is not included in the content
-	char *arr[700];
-	int i = 0;
-	char country[20];
-	char city[20];
-	char kelvin[20];
-	char weather[20];
-	float cels = 0;
-	char celsBuff[256];
-	char title[16] = "Weather station";
-	char fullCountry[32];
-	uint8_t spacing = 24;
+	uint8_t ucBegin=1,ucI = 0,ucSpacing = 24;
+	volatile uint32_t ulCounter = 0;
+	uint8_t word[16] = "hey",filter[20] = "{}\"\": ,[]'`";
+	char usToken[700] = "{`coord`:{`lon`:36.82,`lat`:-1.28},`weather`:[{`id`:800,`main`:`Clear`,`description`:`clear sky`,`icon`:`01n`}],`base`:`stations`,`main`:{`temp`:291.15,`pressure`:1022,`humidity`:72,`temp_min`:291.15,`temp_max`:291.15},`visibility`:10000,`wind`:{`speed`:4.6,`deg`:30},`clouds`:{`all`:0},`dt`:1485199800,`sys`:{`type`:1,`id`:6409,`message`:0.002,`country`:`KE`,`sunrise`:1485142765,`sunset`:1485186609},`id`:184745,`name`:`Nairobi`,`cod`:200";
+	uint16_t *pusContents = strtok(usToken, filter);//remove '{' and  '}' : note that is not included in the content
+	uint16_t *pusArr[700];
+	uint8_t ucCountry[20], ucCity[20], ucKelvin[20], ucWeather[20];
+	float xCelsius = 0;
+	uint8_t ucCelsius[5], ucTitle[16] = "Weather station", ucFullCountry[20];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -178,54 +171,54 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (contents != NULL)
+  while (pusContents != NULL)
   	{
-  		arr[i] = contents;
-  		contents = strtok(NULL, filter);
-  		i++;
+	  pusArr[ucI] = pusContents;
+  		pusContents = strtok(NULL, filter);
+  		ucI++;
   	}
 
 
-  	for (int j = 0; j < i; j++)
+  	for (uint8_t ucJ = 0; ucJ < ucI; ucJ++)
   	{
-  		if (strcmp(arr[j], "temp") == 0)
+  		if (strcmp(pusArr[ucJ], "temp") == 0)
   		{
-  			strcpy(kelvin, arr[j + 1]);
+  			strcpy(ucKelvin, pusArr[ucJ + 1]);
   			continue;
   		}
-  		if (strcmp(arr[j], "country") == 0)
+  		if (strcmp(pusArr[ucJ], "country") == 0)
   		{
-  			strcpy(country, arr[j+1]);
+  			strcpy(ucCountry, pusArr[ucJ+1]);
   			continue;
   		}
 
-  		if (strcmp(arr[j], "name") == 0)
+  		if (strcmp(pusArr[ucJ], "name") == 0)
   		{
-  			strcpy(city, arr[j + 1]);
+  			strcpy(ucCity, pusArr[ucJ + 1]);
   			continue;
   		}
 
   	}
 
-  	for (int j = 0; j < i; j++)
+  	for (uint8_t ucJ = 0; ucJ < ucI; ucJ++)
   	{
-  		if (strcmp(arr[j], "main") == 0)
+  		if (strcmp(pusArr[ucJ], "main") == 0)
   		{
-  			strcpy(weather, arr[j + 1]);
+  			strcpy(ucWeather, pusArr[ucJ + 1]);
   			break;
   		}
   	}
 
-  	cels = convertToCelsius(kelvin);
-  	sprintf(celsBuff,"%0.2f*C",cels);
-  	strcpy(fullCountry,city);
-  	strcat(fullCountry,",");
-  	strcat(fullCountry, country);
+  	xCelsius = xConvertToCelsius(ucKelvin);
+  	sprintf(ucCelsius,"%0.2f*C",xCelsius);
+  	strcpy(ucFullCountry,ucCity);
+  	strcat(ucFullCountry,",");
+  	strcat(ucFullCountry, ucCountry);
 
-  	BSP_LCD_DisplayStringAt(0, 10, (uint8_t*) title, CENTER_MODE);
-  	BSP_LCD_DisplayStringAt(0, spacing + 10, (uint8_t*) celsBuff, CENTER_MODE);
-  	BSP_LCD_DisplayStringAt(0, (spacing * 2) + 10, (uint8_t*) weather, CENTER_MODE);
-  	BSP_LCD_DisplayStringAt(0, (spacing * 3) + 10, (uint8_t*) fullCountry, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, 10, (uint8_t*) ucTitle, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, ucSpacing + 10, (uint8_t*) ucCelsius, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, (ucSpacing * 2) + 10, (uint8_t*) ucWeather, CENTER_MODE);
+  	BSP_LCD_DisplayStringAt(0, (ucSpacing * 3) + 10, (uint8_t*) ucFullCountry, CENTER_MODE);
 
 
 
@@ -237,7 +230,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
 	  MX_LWIP_Process(); // polt of er data beschikbaar is
 
-	 if(ucBegin==1 && counter++ > 500){
+	 if(ucBegin==1 && ulCounter++ > 500){
 		 ucBegin = 0;
 		 struct tcp_pcb *connectie = tcp_new();
 		 ip_addr_t xServerip;
@@ -931,9 +924,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-float convertToCelsius(char *kelvin)
+float xConvertToCelsius(uint8_t *ucKelvin)
 {
-	return atof(kelvin) - 273.15;
+	return atof(ucKelvin) - 273.15;
 }
 /* USER CODE END 4 */
 
